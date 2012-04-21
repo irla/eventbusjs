@@ -1,7 +1,6 @@
-var Mvp4js = Mvp4js || {};
+var JsEB = JsEB || {};
 
-Mvp4js.EventBus = {};
-Mvp4js.EventBus._new = function(events){
+JsEB.EventBus = function(events){
 	var self = {};
 	var handlers = [];
 	
@@ -10,7 +9,7 @@ Mvp4js.EventBus._new = function(events){
 		handlers[event.name] = eventHandlers;
 		for (var i=0; i < event.handlers.length; i++){
 			var handler = event.handlers[i];
-			eventHandlers[eventHandlers.length] = self.getHandler(event.name, handler);
+			eventHandlers[eventHandlers.length] = getHandler(event.name, handler);
 		}
 		self[event.name] = function (){
 			for(var j = 0; j < eventHandlers.length; j++){
@@ -34,20 +33,7 @@ Mvp4js.EventBus._new = function(events){
 		}
 	};
 	
-	self.init = function(){
-		for (var i = 0; i < events.length; i++){
-			var event = events[i];
-			addEventAndBindHandlers(event);
-			bindCallers(event);
-		}
-	};
-	
-	/**
-	 * It should be private, but for test purposes I will make it public
-	 * @param eventName - name of event
-	 * @param handler - handler to take
-	 */
-	self.getHandler = function(eventName, handler){
+	var getHandler = function(eventName, handler){
 		var handlerObj = handler;
 		var handlerFunct = handler;
 		if (typeof(handler) == 'string'){
@@ -60,12 +46,19 @@ Mvp4js.EventBus._new = function(events){
 		return handlerFunct;
 	};
 	
-	self.add = function(eventName, handler){
-		handlers[eventName][handlers[eventName].length] = self.getHandler(eventName, handler);
+	
+	self.init = function(){
+		for (var i = 0; i < events.length; i++){
+			var event = events[i];
+			addEventAndBindHandlers(event);
+			bindCallers(event);
+		}
 	};
 	
+	self.add = function(eventName, handler){
+		handlers[eventName][handlers[eventName].length] = getHandler(eventName, handler);
+	};
 	return self;
-	
 };
 
 String.prototype.capitalize = String.capitalize || function() {
