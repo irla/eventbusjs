@@ -1,0 +1,27 @@
+{
+  "name": "js-event-bus",
+  "version": "0.1.0",
+  "homepage": "https://github.com/irla/js-event-bus",
+  "authors": [
+    "Pawel Irla <irla.pawel@gmail.com>"
+  ],
+  "description": "Event bus pattern implementation for JavaScript",
+  "main": "src/js-event-bus.js",
+  "keywords": [
+    "javascript",
+    "eventbus",
+    "requirejs",
+    "pattern"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.11"
+  }
+}
